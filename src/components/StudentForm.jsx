@@ -25,63 +25,65 @@ export default function StudentForm(props) {
 
   return (
     <div className="boxy dataSolo">
-      <div className="btnRow" style={{ marginBottom: 10 }}>
+      <div className="btnRow" style={{ marginBottom: 16 }}>
         <div className="tagRow">
-          <span className="tinyTag dark">{badMode ? "edit student" : "add student"}</span>
+          <span className="tinyTag dark">{badMode ? "✏️ Edit Student" : "➕ Add Student"}</span>
           {one && one.id ? (
-            <span className="tinyTag muted">id #{one.id}</span>
+            <span className="tinyTag muted">🆔 ID #{one.id}</span>
           ) : null}
         </div>
         <button className="ugBtn gray small" onClick={props.onBack}>
-          back
+          ← Back
         </button>
       </div>
       <form onSubmit={sendIt} className="formStack">
         <div className="twoCol">
           <div className="formRow">
-            <label>name</label>
+            <label>👤 Student Name</label>
             <input
               value={nm}
               onChange={(e) => setNm(e.target.value)}
-              placeholder="some name"
+              placeholder="Enter student name"
             />
           </div>
           <div className="formRow">
-            <label>section</label>
+            <label>📚 Section</label>
             <input
               value={sec}
               onChange={(e) => setSec(e.target.value)}
-              placeholder="like A or B"
+              placeholder="e.g., A, B, C"
             />
           </div>
         </div>
         <div className="twoCol">
           <div className="formRow">
-            <label>marks</label>
+            <label>📊 Marks (0-100)</label>
             <input
               type="number"
+              min="0"
+              max="100"
               value={mk}
               onChange={(e) => setMk(e.target.value)}
-              placeholder="0-100"
+              placeholder="Enter marks"
             />
           </div>
           <div className="formRow">
-            <label>grade</label>
+            <label>⭐ Grade</label>
             <select value={gr} onChange={(e) => setGr(e.target.value)}>
-              <option value="">pick grade</option>
-              <option value="A+">A+</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="F">F</option>
+              <option value="">Select Grade</option>
+              <option value="A+">A+ (Excellent)</option>
+              <option value="A">A (Very Good)</option>
+              <option value="B">B (Good)</option>
+              <option value="C">C (Average)</option>
+              <option value="D">D (Below Average)</option>
+              <option value="F">F (Fail)</option>
             </select>
           </div>
         </div>
         <div className="btnRow">
           <div className="btnChunk">
             <button className="ugBtn green" type="submit">
-              {badMode ? "save changes" : "save student"}
+              {badMode ? "💾 Save Changes" : "✅ Save Student"}
             </button>
             <button
               className="ugBtn gray"
@@ -93,16 +95,17 @@ export default function StudentForm(props) {
                 setGr("")
               }}
             >
-              clear
+              🗑️ Clear
             </button>
           </div>
         </div>
       </form>
-      <div className="tinyNote" style={{ marginTop: 8 }}>
-        after saving, watch alert then go back and press load students
+      <div className="tinyNote" style={{ marginTop: 12 }}>
+        💡 After saving, go back and click "Load Students" to see your changes
       </div>
     </div>
   )
 }
+
 
 

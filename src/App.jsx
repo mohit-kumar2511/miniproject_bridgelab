@@ -92,8 +92,8 @@ export default function App() {
       <div className="tinyPage">
         <div className="topHead">
           <div>
-            <h1>random student thing</h1>
-            <div className="tinyNote">add, see, edit, delete student by button and form</div>
+            <h1>🎓 Student Management System</h1>
+            <div className="tinyNote">✨ Manage student records with ease - Add, View, Edit & Delete</div>
           </div>
           <div className="badTabs">
             <button
@@ -103,7 +103,7 @@ export default function App() {
                 setMode("list")
               }}
             >
-              list
+              📋 List
             </button>
             <button
               className={viewTab === "form" ? "onTab" : ""}
@@ -112,7 +112,7 @@ export default function App() {
                 setMode("form")
               }}
             >
-              form
+              ✏️ Form
             </button>
             <button
               className={viewTab === "details" ? "onTab" : ""}
@@ -121,7 +121,7 @@ export default function App() {
                 setMode("details")
               }}
             >
-              details
+              👁️ Details
             </button>
           </div>
         </div>
@@ -130,32 +130,32 @@ export default function App() {
           {mode === "list" && (
             <div className="rightSide">
               <div className="boxy">
-                <h3>little info</h3>
+                <h3>ℹ️ Quick Guide</h3>
                 <ul className="rightList">
                   <li className="rightItem">
-                    <span>how to load</span>
-                    <span>press load students</span>
+                    <span>📥 How to Load</span>
+                    <span>Click Load Students</span>
                   </li>
                   <li className="rightItem">
-                    <span>after add / edit / delete</span>
-                    <span>see alert then load again</span>
+                    <span>💾 After Changes</span>
+                    <span>Reload to see updates</span>
                   </li>
                   <li className="rightItem">
-                    <span>where saved</span>
-                    <span>json server db.json</span>
+                    <span>💿 Data Storage</span>
+                    <span>JSON Server (db.json)</span>
                   </li>
                 </ul>
               </div>
               <div className="boxy">
-                <h3>quick stats</h3>
+                <h3>📊 Quick Stats</h3>
                 <ul className="rightList">
                   <li className="rightItem">
-                    <span>total student</span>
-                    <span>{all.length}</span>
+                    <span>👥 Total Students</span>
+                    <span style={{fontWeight: '700', color: '#667eea'}}>{all.length}</span>
                   </li>
                   <li className="rightItem">
-                    <span>avg marks</span>
-                    <span>
+                    <span>📈 Average Marks</span>
+                    <span style={{fontWeight: '700', color: '#10b981'}}>
                       {all.length
                         ? Math.round(
                             all.reduce((a, b) => a + (Number(b.marks) || 0), 0) /
@@ -173,5 +173,6 @@ export default function App() {
     </div>
   )
 }
+
 
 

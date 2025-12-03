@@ -12,31 +12,31 @@ export default function StudentList(props) {
 
   return (
     <div className="boxy dataSolo">
-      <div className="btnRow" style={{ marginBottom: 8 }}>
+      <div className="btnRow" style={{ marginBottom: 16 }}>
         <div className="btnChunk">
           <button className="ugBtn blue small" onClick={props.onLoad} disabled={props.loading}>
-            {props.loading ? "loading..." : "load students"}
+            {props.loading ? "⏳ Loading..." : "📥 Load Students"}
           </button>
           <button className="ugBtn green small" onClick={props.onAdd}>
-            add student
+            ➕ Add Student
           </button>
         </div>
         <div className="tinyNote">
-          click load students after edit or delete
+          💡 Tip: Click Load Students after making changes
         </div>
       </div>
       {stuff.length === 0 ? (
-        <div className="emptyText">no students here yet</div>
+        <div className="emptyText">📭 No students found. Add your first student! 🎓</div>
       ) : (
         <table className="listTable">
           <thead>
             <tr>
-              <th>id</th>
-              <th>name</th>
-              <th>section</th>
-              <th>marks</th>
-              <th>grade</th>
-              <th>do</th>
+              <th>🆔 ID</th>
+              <th>👤 Name</th>
+              <th>📚 Section</th>
+              <th>📊 Marks</th>
+              <th>⭐ Grade</th>
+              <th>⚙️ Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -57,19 +57,19 @@ export default function StudentList(props) {
                       className="ugBtn gray small"
                       onClick={() => props.onView(x)}
                     >
-                      view
+                      👁️ View
                     </button>
                     <button
                       className="ugBtn yellow small"
                       onClick={() => props.onEdit(x)}
                     >
-                      edit
+                      ✏️ Edit
                     </button>
                     <button
                       className="ugBtn red small"
                       onClick={() => props.onDelete(x)}
                     >
-                      delete
+                      🗑️ Delete
                     </button>
                   </div>
                 </td>
@@ -81,5 +81,6 @@ export default function StudentList(props) {
     </div>
   )
 }
+
 
 
