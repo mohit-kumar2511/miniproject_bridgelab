@@ -1,0 +1,77 @@
+===============================================
+COMPLETE SETUP INSTRUCTIONS
+===============================================
+
+STEP 1: OPEN EXCEL
+-------------------
+1. Open Microsoft Excel
+2. Create NEW workbook or use existing
+3. Press ALT+F11 to open VBA Editor
+
+STEP 2: PASTE INSTALLER CODE
+-----------------------------
+1. In VBA Editor, right-click VBAProject > Insert > Module
+2. Name it: INSTALLER
+3. Open file: INSTALLER.bas
+4. Copy ALL code and paste into INSTALLER module
+5. Close VBA Editor
+
+STEP 3: RUN INSTALLER
+----------------------
+1. Press ALT+F8 to open Macros dialog
+2. Select "InstallLibrarySystem"
+3. Click RUN
+4. Wait for completion message
+
+STEP 4: ADD ALL VBA MODULES
+----------------------------
+1. Press ALT+F11 again
+2. Right-click VBAProject > Insert > Module (6 times)
+3. Name them:
+   - Module1_Helpers
+   - Module2_Payment
+   - Module3_Receipt
+   - Module4_Reports
+   - Module5_Photos
+   - Module6_Validation
+
+4. For EACH module:
+   - Double-click to open
+   - Open corresponding .bas file from folder
+   - Copy ALL code
+   - Paste into module
+   - Save (CTRL+S)
+
+STEP 5: ADD WORKSHEET EVENT
+----------------------------
+1. In VBA Editor, double-click "Students" (under Microsoft Excel Objects)
+2. Copy code from Sheet_Students.cls
+3. Paste into the code window
+4. Save workbook
+
+STEP 6: SAVE AS MACRO-ENABLED WORKBOOK
+---------------------------------------
+1. Go to File > Save As
+2. Choose: Excel Macro-Enabled Workbook (*.xlsm)
+3. Name it: LibraryManagement.xlsm
+4. Save
+
+STEP 7: CONFIGURE SETTINGS
+---------------------------
+1. Go to Settings sheet
+2. Update:
+   - B1: Your Library Name
+   - B2: Full path to logo image (or leave default)
+   - B3: Full path to placeholder photo (or leave default)
+
+STEP 8: TEST
+------------
+1. Press ALT+F11
+2. Press CTRL+G (Immediate Window)
+3. Type this and press Enter:
+   CreateNewStudentWithPayment "Test Student", "Test Father", "1234567890", "Monthly", Date, Format(Date, "mmm-yyyy"), 500
+
+===============================================
+ALL DONE! Your Excel Library System is ready!
+===============================================
+

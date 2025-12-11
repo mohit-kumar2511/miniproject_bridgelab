@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <h2 class="mb-0"><i class="fas fa-rupee-sign"></i> Income & Expenses - {{ month }}</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+        <div class="card stat-card income-card shadow">
+            <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Total Income</p>
+                <h4 class="mb-0">₹{{ total_income }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card stat-card expense-card shadow">
+            <div class="card-icon"><i class="fas fa-arrow-down"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Total Expenses</p>
+                <h4 class="mb-0">₹{{ total_expenses }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card stat-card net-card shadow">
+            <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Net Income</p>
+                <h4 class="mb-0">₹{{ net_income }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-money-bill-wave"></i> Income Transactions</h5>
+            </div>
+            <div class="card-body p-0 table-card">
+                <div class="table-responsive d-none d-md-block">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Student ID</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if transactions %}
+                                {% for t in transactions %}
+                                <tr>
+                                    <td>{{ t.date.strftime('%d/%m/%Y') if t.date else 'N/A' }}</td>
+                                    <td>{{ t.student_uid }}</td>
+                                    <td class="text-success fw-bold">₹{{ t.amount }}</td>
+                                    <td><span class="badge bg-success-subtle text-success">{{ t.payment_type }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-3">No transactions this month</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-md-none">
+                    {% if transactions %}
+                        {% for t in transactions %}
+                        <div class="mobile-card border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Date</span>
+                                <span class="fw-semibold">{{ t.date.strftime('%d/%m/%Y') if t.date else 'N/A' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Student</span>
+                                <span>{{ t.student_uid }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Amount</span>
+                                <span class="amount-chip text-success">₹{{ t.amount }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="label-badge">Type</span>
+                                <span class="badge bg-success-subtle text-success">{{ t.payment_type }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted py-3 mb-0">No transactions this month</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-credit-card"></i> Expenses</h5>
+            </div>
+            <div class="card-body p-0 table-card">
+                <div class="table-responsive d-none d-md-block">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if expenses %}
+                                {% for e in expenses %}
+                                <tr>
+                                    <td>{{ e.date.strftime('%d/%m/%Y') if e.date else 'N/A' }}</td>
+                                    <td>{{ e.title }}</td>
+                                    <td class="text-danger fw-bold">₹{{ e.amount }}</td>
+                                    <td><span class="badge bg-danger-subtle text-danger">{{ e.category or 'N/A' }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-3">No expenses this month</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-md-none">
+                    {% if expenses %}
+                        {% for e in expenses %}
+                        <div class="mobile-card border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Date</span>
+                                <span class="fw-semibold">{{ e.date.strftime('%d/%m/%Y') if e.date else 'N/A' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Title</span>
+                                <span>{{ e.title }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="label-badge">Amount</span>
+                                <span class="amount-chip text-danger">₹{{ e.amount }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="label-badge">Category</span>
+                                <span class="badge bg-danger-subtle text-danger">{{ e.category or 'N/A' }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted py-3 mb-0">No expenses this month</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

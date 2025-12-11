@@ -1,0 +1,96 @@
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.card {
+    border-radius: 12px;
+    border: none;
+}
+.navbar {
+    background: linear-gradient(45deg, #0d6efd, #0a58ca);
+}
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+    border: none;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card .card-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 18px;
+}
+
+.stat-card.income-card {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.stat-card.expense-card {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.stat-card.net-card {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.table-card {
+    padding: 12px;
+}
+
+.mobile-card {
+    padding: 12px 4px;
+}
+
+.mobile-card:last-child {
+    border-bottom: none !important;
+}
+
+.label-badge {
+    display: inline-block;
+    min-width: 64px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #4338ca;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.amount-chip {
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: #ecfdf3;
+    font-weight: 700;
+}
+
+@media (max-width: 767.98px) {
+    h2 {
+        font-size: 1.35rem;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .table-card {
+        padding: 10px;
+    }
+
+    .card-header h5 {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <h2 class="mb-0"><i class="fas fa-chart-line"></i> Monthly Report</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<!-- Current vs Previous Month Comparison -->
+{% if current_month and previous_month %}
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-check"></i> Current Month - {{ current_month.month_label }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <p class="mb-0 text-muted small">Active Students</p>
+                            <h3 class="mb-0 text-primary">{{ current_month.active_students }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <p class="mb-0 text-muted small">Total Students</p>
+                            <h3 class="mb-0 text-info">{{ current_month.total_students }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-success bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Revenue</p>
+                            <h4 class="mb-0 text-success">₹{{ "%.2f"|format(current_month.income) }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-danger bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Expenses</p>
+                            <h4 class="mb-0 text-danger">₹{{ "%.2f"|format(current_month.expenses) }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-center p-3 {% if current_month.net_income >= 0 %}bg-success{% else %}bg-danger{% endif %} bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Net Income</p>
+                            <h3 class="mb-0 {% if current_month.net_income >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                ₹{{ "%.2f"|format(current_month.net_income) }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow-sm border-secondary">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-alt"></i> Previous Month - {{ previous_month.month_label }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <p class="mb-0 text-muted small">Active Students</p>
+                            <h3 class="mb-0 text-secondary">{{ previous_month.active_students }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <p class="mb-0 text-muted small">Total Students</p>
+                            <h3 class="mb-0 text-secondary">{{ previous_month.total_students }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-success bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Revenue</p>
+                            <h4 class="mb-0 text-success">₹{{ "%.2f"|format(previous_month.income) }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-danger bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Expenses</p>
+                            <h4 class="mb-0 text-danger">₹{{ "%.2f"|format(previous_month.expenses) }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-center p-3 {% if previous_month.net_income >= 0 %}bg-success{% else %}bg-danger{% endif %} bg-opacity-10 rounded">
+                            <p class="mb-0 text-muted small">Net Income</p>
+                            <h3 class="mb-0 {% if previous_month.net_income >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                ₹{{ "%.2f"|format(previous_month.net_income) }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Comparison Summary -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Month-over-Month Comparison</h5>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <p class="mb-1 text-muted small">Student Change</p>
+                    <h4 class="mb-0 {% if current_month.active_students >= previous_month.active_students %}text-success{% else %}text-danger{% endif %}">
+                        {% set change = current_month.active_students - previous_month.active_students %}
+                        {% if change > 0 %}+{% endif %}{{ change }}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <p class="mb-1 text-muted small">Revenue Change</p>
+                    <h4 class="mb-0 {% if current_month.income >= previous_month.income %}text-success{% else %}text-danger{% endif %}">
+                        {% set change = current_month.income - previous_month.income %}
+                        {% if change > 0 %}+{% endif %}₹{{ "%.2f"|format(change) }}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <p class="mb-1 text-muted small">Expense Change</p>
+                    <h4 class="mb-0 {% if current_month.expenses <= previous_month.expenses %}text-success{% else %}text-danger{% endif %}">
+                        {% set change = current_month.expenses - previous_month.expenses %}
+                        {% if change > 0 %}+{% endif %}₹{{ "%.2f"|format(change) }}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <p class="mb-1 text-muted small">Net Income Change</p>
+                    <h4 class="mb-0 {% if current_month.net_income >= previous_month.net_income %}text-success{% else %}text-danger{% endif %}">
+                        {% set change = current_month.net_income - previous_month.net_income %}
+                        {% if change > 0 %}+{% endif %}₹{{ "%.2f"|format(change) }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- All Months Table -->
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0"><i class="fas fa-table"></i> Last 12 Months Detailed Report</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Month</th>
+                        <th class="text-center">Active Students</th>
+                        <th class="text-center">Total Students</th>
+                        <th class="text-end">Revenue (₹)</th>
+                        <th class="text-end">Expenses (₹)</th>
+                        <th class="text-end">Net Income (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for month in months_data %}
+                    <tr {% if month.is_current %}class="table-primary fw-bold"{% elif month.is_previous %}class="table-secondary"{% endif %}>
+                        <td>
+                            {{ month.month_label }}
+                            {% if month.is_current %}<span class="badge bg-primary ms-2">Current</span>{% endif %}
+                            {% if month.is_previous %}<span class="badge bg-secondary ms-2">Previous</span>{% endif %}
+                        </td>
+                        <td class="text-center">{{ month.active_students }}</td>
+                        <td class="text-center">{{ month.total_students }}</td>
+                        <td class="text-end text-success fw-semibold">₹{{ "%.2f"|format(month.income) }}</td>
+                        <td class="text-end text-danger fw-semibold">₹{{ "%.2f"|format(month.expenses) }}</td>
+                        <td class="text-end {% if month.net_income >= 0 %}text-success{% else %}text-danger{% endif %} fw-bold">
+                            ₹{{ "%.2f"|format(month.net_income) }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Mobile View -->
+        <div class="d-md-none p-3">
+            {% for month in months_data %}
+            <div class="card mb-3 {% if month.is_current %}border-primary{% elif month.is_previous %}border-secondary{% endif %}">
+                <div class="card-header {% if month.is_current %}bg-primary text-white{% elif month.is_previous %}bg-secondary text-white{% else %}bg-light{% endif %}">
+                    <strong>{{ month.month_label }}</strong>
+                    {% if month.is_current %}<span class="badge bg-light text-primary ms-2">Current</span>{% endif %}
+                    {% if month.is_previous %}<span class="badge bg-light text-secondary ms-2">Previous</span>{% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <small class="text-muted">Active Students</small>
+                            <p class="mb-0 fw-bold">{{ month.active_students }}</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Total Students</small>
+                            <p class="mb-0 fw-bold">{{ month.total_students }}</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Revenue</small>
+                            <p class="mb-0 text-success fw-bold">₹{{ "%.2f"|format(month.income) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Expenses</small>
+                            <p class="mb-0 text-danger fw-bold">₹{{ "%.2f"|format(month.expenses) }}</p>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-muted">Net Income</small>
+                            <p class="mb-0 {% if month.net_income >= 0 %}text-success{% else %}text-danger{% endif %} fw-bold">
+                                ₹{{ "%.2f"|format(month.net_income) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <h2 class="mb-0"><i class="fas fa-chart-line"></i> Student Flow</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stat-card income-card shadow">
+            <div class="card-icon"><i class="fas fa-user-plus"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">New</p>
+                <h4 class="mb-0">{{ stats.new }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card net-card shadow">
+            <div class="card-icon"><i class="fas fa-rotate-left"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Renew/Returned</p>
+                <h4 class="mb-0">{{ stats.renewals }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card expense-card shadow">
+            <div class="card-icon"><i class="fas fa-user-minus"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Churned</p>
+                <h4 class="mb-0">{{ stats.churned }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card income-card shadow">
+            <div class="card-icon"><i class="fas fa-users"></i></div>
+            <div>
+                <p class="text-uppercase small mb-1">Active (Month End)</p>
+                <h4 class="mb-0">{{ stats.active_end }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-light">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h5 class="mb-0"><i class="fas fa-clock"></i> Last 6 Months Trend</h5>
+            <span class="badge bg-primary text-white px-3 py-2">Showing oldest → newest</span>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Month</th>
+                        <th>New</th>
+                        <th>Renew/Returned</th>
+                        <th>Churned</th>
+                        <th>Active (Month End)</th>
+                        <th>Net Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in trend %}
+                    <tr>
+                        <td>{{ row.month_label }}</td>
+                        <td class="fw-semibold text-success">{{ row.new }}</td>
+                        <td class="fw-semibold text-primary">{{ row.renewals }}</td>
+                        <td class="fw-semibold text-danger">{{ row.churned }}</td>
+                        <td>{{ row.active_end }}</td>
+                        <td class="fw-semibold {% if row.net_change >= 0 %}text-success{% else %}text-danger{% endif %}">
+                            {% if row.net_change >= 0 %}+{% endif %}{{ row.net_change }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

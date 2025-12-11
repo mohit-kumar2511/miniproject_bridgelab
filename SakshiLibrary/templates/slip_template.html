@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Helvetica, sans-serif; padding: 20px; color: #333; }
+        .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .title { font-size: 26px; font-weight: bold; color: #0d6efd; text-transform: uppercase; }
+        .subtitle { font-size: 14px; margin-top: 5px; }
+        .details { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .details td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .amount-row { background-color: #f8f9fa; font-size: 18px; }
+        .footer { text-align: center; margin-top: 60px; font-size: 12px; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">SAKSHI LIBRARY</div>
+        <div class="subtitle">Center of Excellence for Students</div>
+        <div class="subtitle">Date: {{ now.strftime('%d/%m/%Y %I:%M %p') }}</div>
+    </div>
+
+    <table class="details">
+        <tr>
+            <td><strong>Receipt No:</strong> #{{ t.id }}</td>
+            <td><strong>Student ID:</strong> {{ s.uid }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Student Name:</strong> {{ s.name }}</td>
+        </tr>
+        <tr>
+            <td><strong>Father Name:</strong> {{ s.father_name }}</td>
+            <td><strong>Mobile:</strong> {{ s.mobile }}</td>
+        </tr>
+        <tr>
+            <td><strong>Plan:</strong> {{ t.months_paid }} Month(s)</td>
+            <td><strong>Type:</strong> {{ t.payment_type }}</td>
+        </tr>
+        <tr>
+            <td><strong>Old Expiry:</strong> {{ t.old_expiry.strftime('%d/%m/%Y') if t.old_expiry else 'N/A' }}</td>
+            <td><strong>New Expiry:</strong> <span style="color:green; font-weight:bold;">{{ t.new_expiry.strftime('%d/%m/%Y') if t.new_expiry else 'N/A' }}</span></td>
+        </tr>
+        <tr class="amount-row">
+            <td><strong>Total Paid:</strong></td>
+            <td style="text-align: right;"><strong>₹ {{ t.amount }}/-</strong></td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        <p>This is a computer-generated receipt, no signature required.</p>
+        <br>
+        _________<br>
+        Authorized Signatory
+    </div>
+</body>
+</html>

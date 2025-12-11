@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Collect Fees</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='uploads/students/' + student.photo) }}" class="rounded-circle border" width="100" height="100">
+                    <h5 class="mt-2">{{ student.name }}</h5>
+                    <p class="text-muted">ID: {{ student.uid }}</p>
+                    <div class="alert alert-info py-2">
+                        Current Expiry: <strong>{{ student.expiry_date.strftime('%d/%m/%Y') if student.expiry_date else 'N/A' }}</strong>
+                    </div>
+                </div>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Select Duration</label>
+                        <select name="months" class="form-select form-select-lg" id="planSelector" onchange="calcTotal()">
+                            <option value="1" data-price="500">1 Month (₹500)</option>
+                            <option value="2" data-price="1000">2 Months (₹1000)</option>
+                            <option value="3" data-price="1400">3 Months (₹1400 - Discount)</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Total Amount to Pay</label>
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            <input type="number" name="amount" id="totalAmount" class="form-control form-control-lg fw-bold text-success" value="500">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-3 fw-bold">
+                        <i class="fas fa-print"></i> Pay & Print Receipt
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calcTotal() {
+    let select = document.getElementById('planSelector');
+    let price = select.options[select.selectedIndex].getAttribute('data-price');
+    document.getElementById('totalAmount').value = price;
+}
+</script>
+{% endblock %}

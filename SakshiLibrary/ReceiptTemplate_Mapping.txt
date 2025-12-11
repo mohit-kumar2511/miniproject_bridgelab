@@ -1,0 +1,18 @@
+ReceiptTemplate Cell Mapping:
+
+B2 = LibraryName (from Settings!B1)
+B3 = Logo image (from Settings!B2) - insert as shape named "LogoImage"
+B5 = StudentName (from Students!Name)
+B6 = FatherName (from Students!FatherName)
+B7 = Mobile (from Students!Mobile)
+B8 = StudentID (from Students!StudentID)
+B9 = Plan (from Students!Plan)
+B10 = OldExpiry (from Students!ExpiryDate before update)
+B11 = NewExpiry (from Students!ExpiryDate after update)
+B12 = MonthPaidFor (from Transactions!MonthPaidFor)
+B13 = Amount (from Transactions!Amount)
+B14 = TransID (from Transactions!TransID)
+B15 = ReceiptDate (from Transactions!Date)
+
+D5 = Student Photo (from Students!PhotoPath or Settings!B3 if blank) - insert as shape named "StudentPhoto"
+

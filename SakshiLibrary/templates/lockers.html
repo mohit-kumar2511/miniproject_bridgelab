@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-lock"></i> Lockers Management</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card bg-dark text-white p-3 shadow">
+            <h3>{{ total }}</h3>
+            <p class="mb-0"><i class="fas fa-lock"></i> Total Lockers</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark p-3 shadow">
+            <h3>{{ occupied }}</h3>
+            <p class="mb-0"><i class="fas fa-lock"></i> Occupied</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white p-3 shadow">
+            <h3>{{ available }}</h3>
+            <p class="mb-0"><i class="fas fa-lock-open"></i> Available</p>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0"><i class="fas fa-list"></i> All Lockers</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Locker Number</th>
+                        <th>Status</th>
+                        <th>Student ID</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if lockers %}
+                        {% for locker in lockers %}
+                        <tr>
+                            <td class="fw-bold">{{ locker.number }}</td>
+                            <td>
+                                {% if locker.is_occupied %}
+                                    <span class="badge bg-danger">Occupied</span>
+                                {% else %}
+                                    <span class="badge bg-success">Available</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if locker.student_uid %}
+                                    <a href="{{ url_for('students_list') }}">{{ locker.student_uid }}</a>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if locker.is_occupied %}
+                                    <span class="text-muted">In Use</span>
+                                {% else %}
+                                    <span class="text-success">Available</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No lockers found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

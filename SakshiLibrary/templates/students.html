@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ filter_title or 'All Students' }}</h2>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('students_list') }}" class="btn btn-sm btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Back to All
+        </a>
+        <input type="text" id="searchInput" class="form-control" style="width: 200px;" placeholder="Search name or ID...">
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Father Name</th>
+                        <th>Mobile</th>
+                        <th>Status</th>
+                        <th>Expiry Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTable">
+                    {% for s in students %}
+                    <tr>
+                        <td>{{ s.uid }}</td>
+                        <td><img src="{{ url_for('static', filename='uploads/students/' + s.photo) }}" width="40" height="40" class="rounded-circle"></td>
+                        <td>{{ s.name }}</td>
+                        <td>{{ s.father_name }}</td>
+                        <td>{{ s.mobile }}</td>
+                        <td>
+                            {% if s.status == 'Active' %}
+                            <span class="badge bg-success">Active</span>
+                            {% else %}
+                            <span class="badge bg-danger">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td class="{{ 'text-danger fw-bold' if s.expiry_date and s.expiry_date < today else '' }}">
+                            {{ s.expiry_date.strftime('%d/%m/%Y') if s.expiry_date else 'N/A' }}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('fees', uid=s.uid) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-rupee-sign"></i> Pay Fee
+                            </a>
+                            <a href="{{ url_for('update_student', uid=s.uid) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Update
+                            </a>
+                            <a href="{{ url_for('delete_student', uid=s.uid) }}" class="btn btn-sm btn-danger" 
+                               onclick="return confirm('Are you sure you want to move this student to Recycle Bin?')">
+                                <i class="fas fa-trash"></i> Remove
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll('#studentTable tr');
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+    });
+});
+</script>
+{% endblock %}

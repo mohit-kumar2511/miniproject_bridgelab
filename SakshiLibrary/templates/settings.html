@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4"><i class="fas fa-cogs"></i> System Settings</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">Basic Information</div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Library Name</label>
+                    <input type="text" name="library_name" class="form-control" value="{{ lib_name }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Library Address</label>
+                    <input type="text" name="address" class="form-control" value="{{ address }}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Starting Date</label>
+                    <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Total Setup Cost (Kharcha)</label>
+                    <input type="number" name="setup_cost" class="form-control" value="{{ setup_cost }}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Library Photo / Logo</label>
+                <input type="file" name="library_photo" class="form-control">
+                {% if photo %}
+                <div class="mt-2">
+                    <img src="{{ url_for('static', filename='uploads/library/' + photo) }}" height="80" class="border rounded">
+                    <small class="text-muted ms-2">Current Photo</small>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">Contact Details</div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Email ID 1 (Main)</label>
+                    <input type="text" name="email_1" class="form-control" value="{{ email_1 }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email ID 2 (Optional)</label>
+                    <input type="text" name="email_2" class="form-control" value="{{ email_2 }}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Mobile No. 1</label>
+                    <input type="text" name="phone_1" class="form-control" value="{{ phone_1 }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Mobile No. 2</label>
+                    <input type="text" name="phone_2" class="form-control" value="{{ phone_2 }}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-success text-white">Capacity & Fees Configuration</div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Total Seats</label>
+                    <input type="number" name="total_seats" class="form-control" value="{{ total_seats }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Total Lockers</label>
+                    <input type="number" name="total_lockers" class="form-control" value="{{ total_lockers }}">
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Monthly Fee (Default)</label>
+                    <div class="input-group">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" name="monthly_fee" class="form-control" value="{{ monthly_fee }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Locker Fee</label>
+                    <div class="input-group">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" name="locker_fee" class="form-control" value="{{ locker_fee }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Seat Fix Fee</label>
+                    <div class="input-group">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" name="seat_fee" class="form-control" value="{{ seat_fee }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg w-100 mb-5">Save All Settings</button>
+</form>
+{% endblock %}

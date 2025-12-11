@@ -1,0 +1,24 @@
+===============================================
+PYTHON FLASK APP - HOW TO RUN
+===============================================
+
+If you want to run the EXISTING Python web application:
+
+STEP 1: INSTALL REQUIREMENTS
+-----------------------------
+Open PowerShell/Command Prompt in this folder, run:
+pip install flask flask-login werkzeug sqlalchemy xhtml2pdf
+
+STEP 2: RUN THE APPLICATION
+----------------------------
+python app.py
+
+STEP 3: ACCESS IN BROWSER
+--------------------------
+Open browser and go to:
+http://127.0.0.1:5000
+
+===============================================
+NOTE: This is DIFFERENT from the Excel VBA solution!
+===============================================
+

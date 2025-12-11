@@ -1,0 +1,5 @@
+StudentID,Name,FatherName,Mobile,Gender,AdmissionDate,Plan,ExpiryDate,Locker,FixedSeat,PhotoPath,Status
+S0001,Rajesh Kumar,Mahesh Kumar,9876543210,Male,2024-01-15,Monthly,2024-03-31,101,25,,Active
+S0002,Priya Sharma,Vikram Sharma,9876543211,Female,2024-02-01,Monthly,2024-04-30,102,30,,Active
+S0003,Amit Patel,Ramesh Patel,9876543212,Male,2024-02-15,Quarterly,2024-05-31,103,35,,Active
+

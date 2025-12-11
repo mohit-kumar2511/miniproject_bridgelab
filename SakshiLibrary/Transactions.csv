@@ -1,0 +1,6 @@
+TransID,Date,StudentID,Type,Amount,MonthPaidFor,Description,Source
+T0001,2024-01-15,S0001,Income,500,Jan-2024,Payment for Jan-2024,Cash
+T0002,2024-02-01,S0002,Income,500,Feb-2024,Payment for Feb-2024,Cash
+T0003,2024-02-15,S0003,Income,1200,Feb-2024,Payment for Feb-2024,Online
+T0004,2024-02-20,S0001,Income,500,Feb-2024,Payment for Feb-2024,Cash
+

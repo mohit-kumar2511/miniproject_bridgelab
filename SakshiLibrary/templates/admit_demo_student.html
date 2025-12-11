@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-user-check"></i> Convert Demo to Full Admission</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Demo Student Info:</strong><br>
+                    <strong>ID:</strong> {{ demo_student.uid }} | 
+                    <strong>Name:</strong> {{ demo_student.name }} | 
+                    <strong>Mobile:</strong> {{ demo_student.mobile }}<br>
+                    <strong>Demo Date:</strong> {{ demo_student.admission_date.strftime('%d/%m/%Y') if demo_student.admission_date else 'N/A' }} | 
+                    <strong>Demo Days:</strong> {{ demo_student.demo_days or 'N/A' }}
+                </div>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" value="{{ demo_student.name }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Father's Name <span class="text-danger">*</span></label>
+                            <input type="text" name="father_name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                            <input type="text" name="mobile" class="form-control" value="{{ demo_student.mobile }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Gender <span class="text-danger">*</span></label>
+                            <select name="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Admission Date <span class="text-danger">*</span></label>
+                            <input type="date" name="admission_date" class="form-control" required value="{{ date.today().strftime('%Y-%m-%d') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Date</label>
+                            <input type="date" name="payment_date" class="form-control" value="{{ date.today().strftime('%Y-%m-%d') }}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Address / Village</label>
+                            <input type="text" name="address" class="form-control" value="{{ demo_student.address or '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Locker Number (optional)</label>
+                            <input type="text" name="locker_number" class="form-control" placeholder="e.g. L-12">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Seat Reservation?</label>
+                            <select name="seat_reserved" class="form-control">
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Upload Photo (Optional)</label>
+                            <input type="file" name="photo" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Library Fees</label>
+                            <input type="number" name="library_fee" class="form-control" placeholder="Total fee" min="0" step="0.01">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Discount</label>
+                            <input type="number" name="discount" class="form-control" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Amount Paid Now</label>
+                            <input type="number" name="amount_paid" class="form-control" placeholder="Received now" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Mode</label>
+                            <select name="payment_mode" class="form-control">
+                                <option value="Cash">Cash</option>
+                                <option value="Online">Online</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Notes / Due breakdown</label>
+                            <textarea name="notes" class="form-control" rows="2" placeholder="Due details, locker/seat remarks, etc."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 btn-lg">
+                        <i class="fas fa-check"></i> Complete Admission
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
